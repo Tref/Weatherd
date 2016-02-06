@@ -44,18 +44,32 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12" ng-controller="CityListCtrl">
-        <form class="" action="" method="post">
-          <select id="selectCities">
-            <option ng-repeat="city in cities">
-              {{city.name}}
-              <!-- <div>High: {{city.high}}</div> -->
-              <!-- <div>Low: {{city.low}}</div> -->
-              <!-- <div>Pressure: {{city.pressure}}</div> -->
-              <!-- <div>Humidity: {{city.humidity}}</div> -->
-            </option>
-          </select>
-        </form>
+      <div class="col-md-4 left-col" ng-controller="CityListCtrl">
+        <div class="inner-box">
+          <h3>Left Side</h3>
+          <form class="" action="" method="post">
+            <label for="selectCities">Which city would you like to get the weather?</label>
+            <div class="form-group">
+              <select id="selectCities" class="form-control" >
+                <option selected="selected">-- Select a City --</option>
+                <option ng-repeat="city in cities | orderBy:orderProp">
+                  {{city.name}}
+                  <!-- <div>High: {{city.high}}</div> -->
+                  <!-- <div>Low: {{city.low}}</div> -->
+                  <!-- <div>Pressure: {{city.pressure}}</div> -->
+                  <!-- <div>Humidity: {{city.humidity}}</div> -->
+                </option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8 right-col">
+        <div class="inner-box">
+          <h3>Right Side</h3>
+          <div ng-view></div>
+          <div>Angular seed app: v<span app-version></span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -65,9 +79,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-  <div ng-view></div>
 
-  <div>Angular seed app: v<span app-version></span></div>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>

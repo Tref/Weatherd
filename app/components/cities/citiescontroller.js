@@ -17,4 +17,5 @@ angular.module('weatheredApp.citiesController', [])
     {'name': 'Houston', 'high': 73, 'low': 54, 'pressure': 120, 'humidity': 80},
     {'name': 'San Diego', 'high': 73, 'low': 54, 'pressure': 120, 'humidity': 80}
   ];
+  $scope.orderProp = 'name';
 });
