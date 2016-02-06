@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="weatheredApp" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
 
   <video class="welcome-video" poster="img/light.png" autoplay="autoplay" autobuffer="autobuffer" loop="loop" width="1920" height="1072" src="video/light.mp4"></video>
 
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-inverse">
     <div class="container">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -45,16 +45,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12" ng-controller="CityListCtrl">
-        <ul>
-          <li ng-repeat="city in cities">
-            <b>{{city.name}}</b>
-            <div>High: {{city.high}}</div>
-            <div>Low: {{city.low}}</div>
-            <div>Pressure: {{city.pressure}}</div>
-            <div>Humidity: {{city.humidity}}</div>
-            <hr>
-          </li>
-        </ul>
+        <form class="" action="" method="post">
+          <select id="selectCities">
+            <option ng-repeat="city in cities">
+              {{city.name}}
+              <!-- <div>High: {{city.high}}</div> -->
+              <!-- <div>Low: {{city.low}}</div> -->
+              <!-- <div>Pressure: {{city.pressure}}</div> -->
+              <!-- <div>Humidity: {{city.humidity}}</div> -->
+            </option>
+          </select>
+        </form>
       </div>
     </div>
   </div>
@@ -80,5 +81,6 @@
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
+  <script src="components/cities/citiescontroller.js"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 /* https://github.com/angular/protractor/blob/master/docs/toc.md */
 
-describe('my app', function() {
+describe('Weathered', function() {
 
 
   it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
@@ -11,6 +11,7 @@ describe('my app', function() {
   });
 
 
+  // START VIEW 1
   describe('view1', function() {
 
     beforeEach(function() {
@@ -24,8 +25,10 @@ describe('my app', function() {
     });
 
   });
+  // END VIEW 1
 
 
+  // START VIEW 2
   describe('view2', function() {
 
     beforeEach(function() {
@@ -39,4 +42,6 @@ describe('my app', function() {
     });
 
   });
+  // END VIEW 2
+  
 });
