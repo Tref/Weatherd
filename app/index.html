@@ -12,6 +12,7 @@
   <!-- <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css"> -->
   <!-- <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700|PT+Sans:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
@@ -42,23 +43,17 @@
     </div><!-- /.container -->
   </nav>
 
-  <div class="container">
+  <div class="container" ng-controller="CityListCtrl">
     <div class="row">
-      <div class="col-md-4 left-col" ng-controller="CityListCtrl">
+      <div class="col-md-4 left-col">
         <div class="inner-box">
-          <h3>Left Side</h3>
+          <h3>Select a City</h3>
+          <hr>
           <form class="" action="" method="post">
-            <label for="selectCities">Which city would you like to get the weather?</label>
+            <!-- <label for="selectCities">Which city would you like to get the weather?</label> -->
             <div class="form-group">
-              <select id="selectCities" class="form-control" >
-                <option selected="selected">-- Select a City --</option>
-                <option ng-repeat="city in cities | orderBy:orderProp">
-                  {{city.name}}
-                  <!-- <div>High: {{city.high}}</div> -->
-                  <!-- <div>Low: {{city.low}}</div> -->
-                  <!-- <div>Pressure: {{city.pressure}}</div> -->
-                  <!-- <div>Humidity: {{city.humidity}}</div> -->
-                </option>
+              <select id="selectCities" class="form-control"  ng-options="city as city.name for city in cities track by city.id" ng-model="selectedCity" ng-change="change()">
+                <option value="">-- Select a City --</option>
               </select>
             </div>
           </form>
@@ -66,9 +61,49 @@
       </div>
       <div class="col-md-8 right-col">
         <div class="inner-box">
-          <h3>Right Side</h3>
-          <div ng-view></div>
-          <div>Angular seed app: v<span app-version></span></div>
+          <h2>Current weather for {{selectedCity.name}}</h2>
+
+          <hr>
+
+          <h3>
+            <img src="http://openweathermap.org/img/w/{{selectedCity.weather[0].icon}}.png" alt="" />
+            {{selectedCity.main.temp}}<sup>o</sup>F - {{selectedCity.weather[0].main}}: {{selectedCity.weather[0].description}}
+          </h3>
+
+
+
+          <h4>Todays Forecast:</h4>
+          <table class="table table-bordered">
+            <tr>
+              <th>
+                High / Low Temperature
+              </th>
+              <td>
+                {{selectedCity.main.temp_min}}<sup>o</sup>F/{{selectedCity.main.temp_max}}<sup>o</sup>F
+              </td>
+            </tr>
+            <tr>
+              <th>
+                Humidity
+              </th>
+              <td>
+                  {{selectedCity.main.humidity}}%
+              </td>
+            </tr>
+            <tr>
+              <th>
+                Barometric Pressure
+              </th>
+              <td>
+                {{ selectedCity.main.pressure / 33.86}}in
+              </td>
+            </tr>
+          </table>
+
+
+
+          <!-- <div ng-view></div> -->
+          <!-- <div>Angular seed app: v<span app-version></span></div> -->
         </div>
       </div>
     </div>

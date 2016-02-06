@@ -31,6 +31,21 @@
 
 
 /*my styles*/
+
+html, body {
+  font-family: 'PT Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+h2 {
+  color: #44A4F3;
+}
+h3 {
+  color: #F5635D;
+}
 .welcome-video {
   position: fixed;
   top: 50%;
@@ -49,11 +64,12 @@
 .inner-box {
   min-height: 600px;
   padding: 1px 20px 20px 20px;
+  border: 1px solid #ddd;
 }
 
 .left-col .inner-box {
-  background: rgba(0,0,0,.45);
+  background: rgba(255,255,255,.65);
 }
 .right-col .inner-box {
-  background: rgba(0,0,0,.35);
+  background: rgba(255,255,255,.35);
 }
