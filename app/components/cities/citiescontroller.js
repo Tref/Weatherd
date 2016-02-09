@@ -2,15 +2,8 @@
 
 angular.module('weatheredApp.citiesController', [])
 
-// .config(['$routeProvider', function($routeProvider) {
-//   $routeProvider.when('/view1', {
-//     templateUrl: 'view1/view1.html',
-//     controller: 'View1Ctrl'
-//   });
-// }])
-
 .controller('CityListCtrl', ['$scope', '$http', function($scope, $http) {
-  
+
   $scope.cities = [
     {'name': 'New York',  "id":5128581},
     {'name': 'Chicago',   "id":4887398},

@@ -8,7 +8,6 @@ var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT
 
 describe('Weathered', function() {
 
-
   // START MAIN VIEW
   describe('homePage', function() {
 
