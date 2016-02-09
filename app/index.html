@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>Weather'd</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -39,16 +39,17 @@
 
       <div class="col-md-6 col-md-offset-3 " style="margin-top:40px;">
         <div class="inner-box" ng-if="selectedCity">
-          <h2 class="centered">Current weather for {{selectedCity.name}}</h2>
+          <h2 class="centered currentCity">Current weather for {{selectedCity.name}}</h2>
           <h5 class="centered timestamp">
-            For {{date | date:'medium'}}
+            For <span class="currentDate">{{date | date:'medium'}}</span>
           </h5>
 
           <hr>
 
           <h3>
             <img src="http://openweathermap.org/img/w/{{selectedCity.weatherData.weather[0].icon}}.png" alt="" />
-            {{selectedCity.weatherData.main.temp}}&deg;F - {{selectedCity.weatherData.weather[0].main}}: {{selectedCity.weatherData.weather[0].description}}
+            <span class="currentTemp">{{selectedCity.weatherData.main.temp}}</span>&deg;F -
+            <span class="currentConditions">{{selectedCity.weatherData.weather[0].main}}: {{selectedCity.weatherData.weather[0].description}}</span>
           </h3>
 
           <hr>
@@ -57,19 +58,28 @@
           <table class="table table-bordered">
             <tr>
               <th>High / Low Temperature</th>
-              <td>{{selectedCity.forecastData.list[0].temp.min}}&deg;F / {{selectedCity.forecastData.list[0].temp.max}}&deg;F</td>
+              <td>
+                <span class="currentMin">{{selectedCity.forecastData.list[0].temp.min}}</span>&deg;F /
+                <span class="currentMax">{{selectedCity.forecastData.list[0].temp.max}}</span>&deg;F
+              </td>
             </tr>
             <tr>
               <th>Humidity</th>
-              <td>{{selectedCity.weatherData.main.humidity}}%</td>
+              <td>
+                <span class="currentHumidity">{{selectedCity.weatherData.main.humidity}}</span>%
+              </td>
             </tr>
             <tr>
               <th>Barometric Pressure</th>
-              <td>{{ (selectedCity.weatherData.main.pressure / 33.86).toFixed(2) }} in</td>
+              <td>
+                <span class="currentPressure">{{ (selectedCity.weatherData.main.pressure / 33.86).toFixed(2) }}</span> in
+              </td>
             </tr>
             <tr>
               <th>Wind</th>
-              <td>{{ selectedCity.weatherData.wind.speed }} mph</td>
+              <td>
+                <span class="currentWind">{{ selectedCity.weatherData.wind.speed }}</span> mph
+              </td>
             </tr>
           </table>
           <hr>
