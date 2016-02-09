@@ -9,101 +9,73 @@
   <title>My AngularJS App</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css"> -->
-  <!-- <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700|PT+Sans:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="app.css">
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-
+  <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
 
   <video class="welcome-video" poster="img/light.png" autoplay="autoplay" autobuffer="autobuffer" loop="loop" width="1920" height="1072" src="video/light.mp4"></video>
 
-  <nav class="navbar navbar-inverse">
-    <div class="container">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Weathered</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#/view1">View 1 <span class="sr-only">(current)</span></a></li>
-          <li><a href="#/view2">View 2</a></li>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container -->
-  </nav>
-
+  <img src="img/logo.png" alt="" class="main-logo" />
   <div class="container" ng-controller="CityListCtrl">
     <div class="row">
-      <div class="col-md-4 left-col">
+
+      <div class="col-md-6 col-md-offset-3 left-col">
         <div class="inner-box">
-          <h3>Select a City</h3>
+          <h2>Select the Weather for your City</h2>
           <hr>
           <form class="" action="" method="post">
-            <!-- <label for="selectCities">Which city would you like to get the weather?</label> -->
             <div class="form-group">
-              <select id="selectCities" class="form-control"  ng-options="city as city.name for city in cities track by city.id" ng-model="selectedCity" ng-change="change()">
+              <select id="selectCities" class="form-control input-lg"  ng-options="city as city.name for city in cities track by city.id" ng-model="selectedCity" ng-change="change()">
                 <option value="">-- Select a City --</option>
               </select>
             </div>
           </form>
         </div>
       </div>
-      <div class="col-md-8 right-col">
-        <div class="inner-box">
+
+      <div class="col-md-6 col-md-offset-3 right-col" style="margin-top:40px;">
+        <div class="inner-box" ng-if="selectedCity">
           <h2>Current weather for {{selectedCity.name}}</h2>
+          <h5 class="centered timestamp">
+            For {{date | date:'medium'}}
+          </h5>
 
           <hr>
 
           <h3>
-            <img src="http://openweathermap.org/img/w/{{selectedCity.weather[0].icon}}.png" alt="" />
-            {{selectedCity.main.temp}}<sup>o</sup>F - {{selectedCity.weather[0].main}}: {{selectedCity.weather[0].description}}
+            <img src="http://openweathermap.org/img/w/{{selectedCity.weatherData.weather[0].icon}}.png" alt="" />
+            {{selectedCity.weatherData.main.temp}}&deg;F - {{selectedCity.weatherData.weather[0].main}}: {{selectedCity.weatherData.weather[0].description}}
           </h3>
 
-
+          <hr>
 
           <h4>Todays Forecast:</h4>
           <table class="table table-bordered">
             <tr>
-              <th>
-                High / Low Temperature
-              </th>
-              <td>
-                {{selectedCity.main.temp_min}}<sup>o</sup>F/{{selectedCity.main.temp_max}}<sup>o</sup>F
-              </td>
+              <th>High / Low Temperature</th>
+              <td>{{selectedCity.forecastData.list[0].temp.min}}&deg;F / {{selectedCity.forecastData.list[0].temp.max}}&deg;F</td>
             </tr>
             <tr>
-              <th>
-                Humidity
-              </th>
-              <td>
-                  {{selectedCity.main.humidity}}%
-              </td>
+              <th>Humidity</th>
+              <td>{{selectedCity.weatherData.main.humidity}}%</td>
             </tr>
             <tr>
-              <th>
-                Barometric Pressure
-              </th>
-              <td>
-                {{ selectedCity.main.pressure / 33.86}}in
-              </td>
+              <th>Barometric Pressure</th>
+              <td>{{ (selectedCity.weatherData.main.pressure / 33.86).toFixed(2) }} in</td>
+            </tr>
+            <tr>
+              <th>Wind</th>
+              <td>{{ selectedCity.weatherData.wind.speed }} mph</td>
             </tr>
           </table>
+          <hr>
+          <h4>7 Day Forecast:</h4>
+          <div id="chart"></div>
 
-
-
-          <!-- <div ng-view></div> -->
-          <!-- <div>Angular seed app: v<span app-version></span></div> -->
         </div>
       </div>
     </div>
@@ -114,14 +86,13 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-
-
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
   <script src="app.js"></script>
   <script src="view1/view1.js"></script>
   <script src="view2/view2.js"></script>

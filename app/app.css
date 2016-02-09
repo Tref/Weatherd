@@ -36,6 +36,10 @@ html, body {
   font-family: 'PT Sans', sans-serif;
 }
 
+body {
+  padding-bottom: 100px;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
@@ -45,6 +49,14 @@ h2 {
 }
 h3 {
   color: #F5635D;
+}
+
+h4 {
+  margin: 40px 0;
+}
+.main-logo {
+  display: block;
+  margin: 40px auto;
 }
 .welcome-video {
   position: fixed;
@@ -60,16 +72,48 @@ h3 {
   /*background: url(polina.jpg) no-repeat;*/
   background-size: cover;
 }
-
+.centered {
+  text-align: center;
+}
+.timestamp {
+}
 .inner-box {
-  min-height: 600px;
+  /*min-height: 600px;*/
   padding: 1px 20px 20px 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #eee;
+  background: rgba(255,255,255,.65);
+  border-radius: 10px;
 }
 
 .left-col .inner-box {
-  background: rgba(255,255,255,.65);
+  text-align: center;
 }
+
+.left-col .inner-box h2 {
+  color: #F5635D;
+}
+
 .right-col .inner-box {
-  background: rgba(255,255,255,.35);
+
+}
+.right-col .inner-box h2 {
+  text-align: center;
+}
+.right-col .inner-box table {
+  background: rgba(255,255,255,.6)
+}
+
+
+path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
 }
