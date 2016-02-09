@@ -2,7 +2,6 @@
 
 /* https://github.com/angular/protractor/blob/master/docs/toc.md */
 
-
 var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
 
