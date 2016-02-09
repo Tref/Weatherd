@@ -4,9 +4,17 @@ describe('weatheredApp.citiesController module', function(){
 
   beforeEach(module('weatheredApp.citiesController'));
 
-  describe('view1 controller', function(){
+  describe('citiesController controller', function(){
 
-    it('should create "cities" model with 3 cities', inject(function($controller) {
+
+    it('should define CityListCtrl controller', inject(function($controller) {
+      var scope = {};
+      var ctrl = $controller('CityListCtrl', {$scope:scope});
+
+      expect(ctrl).toBeDefined();
+    }));
+
+    it('should create "cities" model with 5 cities', inject(function($controller) {
       var scope = {};
       var ctrl = $controller('CityListCtrl', {$scope:scope});
 

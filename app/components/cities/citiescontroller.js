@@ -10,6 +10,7 @@ angular.module('weatheredApp.citiesController', [])
 // }])
 
 .controller('CityListCtrl', ['$scope', '$http', function($scope, $http) {
+  
   $scope.cities = [
     {'name': 'New York',  "id":5128581},
     {'name': 'Chicago',   "id":4887398},
@@ -23,16 +24,16 @@ angular.module('weatheredApp.citiesController', [])
   $scope.date = Date.now();
 
   $scope.change = function() {
-    // console.log("changed to " + $scope.selectedCity.id);
 
+    var apiKey = "0e2637c065115c67e1528e72cbbfd9cb";
     var cityID = $scope.selectedCity.id;
-    var currentURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=0e2637c065115c67e1528e72cbbfd9cb&id=";
+    var currentURL = "http://api.openweathermap.org/data/2.5/weather?units=imperial&appid=" +apiKey+ "&id=";
     $http.get(currentURL + cityID ).success(function(data) {
       // console.log(data);
       $scope.selectedCity.weatherData = data;
     });
 
-    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?units=imperial&cnt=7&appid=0e2637c065115c67e1528e72cbbfd9cb&id=";
+    var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?units=imperial&cnt=7&appid=" +apiKey+ "&id=";
     $http.get(forecastURL + cityID).success(function(data) {
       // console.log(data);
       $scope.selectedCity.forecastData = data;
@@ -45,6 +46,7 @@ angular.module('weatheredApp.citiesController', [])
          d.setUTCSeconds(utcSeconds);
 
          dataRow.date = d;
+         // calculate average temp
          dataRow.temp = (obj.temp.day + obj.temp.night) / 2;
          dataRow.min = obj.temp.min;
          dataRow.max = obj.temp.max;
@@ -145,6 +147,7 @@ angular.module('weatheredApp.citiesController', [])
               .text("Temp (°F)");
 
     });
+
     $scope.selectedCity.id = cityID;
 
   };
