@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
+  "name": "Weatherd",
+  "description": "Code test application for weather data",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "repository": "https://github.com/Tref/Weatherd",
   "license": "MIT",
   "private": true,
   "dependencies": {
