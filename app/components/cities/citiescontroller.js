@@ -37,14 +37,12 @@ angular.module('weatheredApp.citiesController', [])
       // console.log(data);
       $scope.selectedCity.forecastData = data;
 
-      // var kvArray = [{key:1, value:10}, {key:2, value:20}, {key:3, value: 30}];
       $scope.selectedCity.graphData = $scope.selectedCity.forecastData.list.map(function(obj){
          var dataRow = {};
 
          var utcSeconds = obj.dt;
          var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
          d.setUTCSeconds(utcSeconds);
-        //  var localDate = d.toLocaleDateString();
 
          dataRow.date = d;
          dataRow.temp = obj.temp.day;
@@ -55,7 +53,7 @@ angular.module('weatheredApp.citiesController', [])
 
       var graphData = $scope.selectedCity.graphData;
 
-      // DO SOME D3 Work
+      // Set up D3 graph
       // Set the dimensions of the canvas / graph
       var margin = {top: 10, right: 10, bottom: 20, left: 30},
           width = 513 - margin.left - margin.right,

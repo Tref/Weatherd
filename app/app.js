@@ -5,8 +5,6 @@ angular.module('weatheredApp', [
   'ui.bootstrap',
   'ngRoute',
   'weatheredApp.view1',
-  'weatheredApp.view2',
-  'weatheredApp.version',
   'weatheredApp.citiesController'
 ]).
 config(['$routeProvider', function($routeProvider) {
