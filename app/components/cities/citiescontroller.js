@@ -14,7 +14,9 @@ angular.module('weatheredApp.citiesController', [])
 
   $scope.orderProp = 'name';
 
-  $scope.date = Date.now();
+  var d = new Date();
+  var n = d.toDateString();
+  $scope.date = n;
 
   $scope.change = function() {
 

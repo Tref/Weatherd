@@ -8,8 +8,8 @@ var month = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT
 
 describe('Weathered', function() {
 
-  // START MAIN VIEW
-  describe('homePage', function() {
+
+  describe('home page', function() {
 
     beforeEach(function() {
       browser.get('index.html');
@@ -26,11 +26,12 @@ describe('Weathered', function() {
           expect(element.all(by.css('.currentCity')).first().getText()).toMatch(/CURRENT WEATHER FOR NEW YORK/);
         });
 
-        // MAKE SURE CURRENT DATE ISNT EMPTY
+        // MAKE SURE CURRENT DATE IS CORRECT
         it('should render the current date', function () {
+          // this should probably be abstracted to its own method so we can test it
           var d = new Date();
-          var n = month[d.getMonth()];
-          expect(element.all(by.css('.currentDate')).first().getText()).toContain(n);
+          var n = d.toDateString();
+          expect(element.all(by.css('.currentDate')).first().getText()).toBe(n.toUpperCase());
         });
 
         // TEST CURRENT TEMP
@@ -94,6 +95,5 @@ describe('Weathered', function() {
     });
 
   });
-  // END MAIN VIEW
 
 });
