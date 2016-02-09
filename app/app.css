@@ -105,7 +105,7 @@ h4 {
 
 
 path {
-    stroke: steelblue;
+    stroke: grey;
     stroke-width: 2;
     fill: none;
 }
@@ -116,4 +116,39 @@ path {
     stroke: grey;
     stroke-width: 1;
     shape-rendering: crispEdges;
+}
+
+path.lineMin {
+  stroke: blue;
+}
+
+path.lineMax {
+  stroke: red;
+}
+.legend {
+  padding: 10px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  float: right;
+  position: absolute;
+  right: 50px;
+  margin-top: -60px;
+}
+.legendLine {
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.legendLine.legendTemp {
+  background: grey;
+}
+.legendLine.legendMin {
+  background: blue;
+}
+
+.legendLine.legendMax {
+  background: red;
 }

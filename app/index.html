@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 col-md-offset-3 right-col" style="margin-top:40px;">
+      <div class="col-md-6 col-md-offset-3 " style="margin-top:40px;">
         <div class="inner-box" ng-if="selectedCity">
           <h2>Current weather for {{selectedCity.name}}</h2>
           <h5 class="centered timestamp">
@@ -74,6 +74,17 @@
           </table>
           <hr>
           <h4>7 Day Forecast:</h4>
+          <div class="legend">
+            <!-- <div class=""> -->
+              <span class="legendLine legendMin"></span>&nbsp;Daily Low <br>
+            <!-- </div> -->
+            <!-- <div class=""> -->
+              <span class="legendLine legendTemp"></span>&nbsp;Daily Average <br>
+            <!-- </div> -->
+            <!-- <div class=""> -->
+              <span class="legendLine legendMax"></span>&nbsp;Daily High
+            <!-- </div> -->
+          </div>
           <div id="chart"></div>
 
         </div>

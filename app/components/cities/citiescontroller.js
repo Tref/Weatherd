@@ -45,10 +45,13 @@ angular.module('weatheredApp.citiesController', [])
          d.setUTCSeconds(utcSeconds);
 
          dataRow.date = d;
-         dataRow.temp = obj.temp.day;
+         dataRow.temp = (obj.temp.day + obj.temp.night) / 2;
+         dataRow.min = obj.temp.min;
+         dataRow.max = obj.temp.max;
          return dataRow;
       });
 
+      // Clear the graph
       d3.select("svg").remove();
 
       var graphData = $scope.selectedCity.graphData;
@@ -59,9 +62,6 @@ angular.module('weatheredApp.citiesController', [])
           width = 513 - margin.left - margin.right,
           height = 270 - margin.top - margin.bottom;
 
-      // Parse the date / time
-      var parseDate = d3.time.format("%d-%b-%y").parse;
-
       // Set the ranges
       var x = d3.time.scale().range([0, width]);
       var y = d3.scale.linear().range([height, 0]);
@@ -70,10 +70,22 @@ angular.module('weatheredApp.citiesController', [])
       var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(5);
       var yAxis = d3.svg.axis().scale(y).orient("left").ticks(5);
 
-      // Define the line
+      // Define the temp line
       var valueline = d3.svg.line()
           .x(function(d) { return x(d.date); })
           .y(function(d) { return y(d.temp); })
+          .interpolate("basis");
+
+      // Define the min line
+      var minline = d3.svg.line()
+          .x(function(d) { return x(d.date); })
+          .y(function(d) { return y(d.min); })
+          .interpolate("basis");
+
+      // Define the max line
+      var maxline = d3.svg.line()
+          .x(function(d) { return x(d.date); })
+          .y(function(d) { return y(d.max); })
           .interpolate("basis");
 
       // Adds the svg canvas
@@ -85,18 +97,28 @@ angular.module('weatheredApp.citiesController', [])
               .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
 
-
+        // Define the min/max values for the axes
         x.domain(d3.extent($scope.selectedCity.graphData, function(d) { return d.date; }));
         y.domain([
-          d3.min($scope.selectedCity.graphData, function(d) { return d.temp; }) - 20,
-          d3.max($scope.selectedCity.graphData, function(d) { return d.temp; }) + 10
+          d3.min($scope.selectedCity.graphData, function(d) { return d.min; }) - 5,
+          d3.max($scope.selectedCity.graphData, function(d) { return d.max; }) + 5
           ]);
-        // y.domain([0, 100]);
 
-        // Add the valueline path.
+
+        // Add the temp path.
         svg.append("path")
             .attr("class", "line")
             .attr("d", valueline($scope.selectedCity.graphData));
+
+        // add the min path
+        svg.append("path")
+            .attr("class", "lineMin")
+            .attr("d", minline($scope.selectedCity.graphData));
+
+        // add the max path
+        svg.append("path")
+            .attr("class", "lineMax")
+            .attr("d", maxline($scope.selectedCity.graphData));
 
         // Add the X Axis
         svg.append("g")
@@ -105,10 +127,11 @@ angular.module('weatheredApp.citiesController', [])
             .call(xAxis)
             .append("text")
               .attr("x", 432)
+              .attr("y", -10)
               .attr("dx", ".71em")
               .style("text-anchor", "end")
               .text("Date");
-;;
+
 
         // Add the Y Axis
         svg.append("g")
@@ -120,82 +143,10 @@ angular.module('weatheredApp.citiesController', [])
               .attr("dy", ".71em")
               .style("text-anchor", "end")
               .text("Temp (°F)");
-;
-
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     });
     $scope.selectedCity.id = cityID;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   };
 
 }]);
-
-// .controller('View1Ctrl', [function() {
-//
-// }]);
-
-// http://api.openweathermap.org/data/2.5/weather?q=NewYork,us&appid=0e2637c065115c67e1528e72cbbfd9cb
-// {"id":5128581,"name":"New York","country":"US","coord":{"lon":-74.005966,"lat":40.714272}}
-// {"id":4887398,"name":"Chicago","country":"US","coord":{"lon":-87.650047,"lat":41.850029}}
-// {"id":4699066,"name":"Houston","country":"US","coord":{"lon":-95.363274,"lat":29.763281}}
-// {"id":5391811,"name":"San Diego","country":"US","coord":{"lon":-117.157257,"lat":32.715328}}
-// {"id":5809844,"name":"Seattle","country":"US","coord":{"lon":-122.332069,"lat":47.606209}}
-// {
-//   "coord":{"lon":-74.01,"lat":40.71},
-//   "weather":[{"id":800,"main":"Clear","description":"Sky is Clear","icon":"01n"}],
-//   "base":"cmc stations",
-//   "main":{"temp":14.62,"pressure":1027.17,"humidity":67,"temp_min":14.62,"temp_max":14.62,"sea_level":1042.18,"grnd_level":1027.17},
-//   "wind":{"speed":2.29,"deg":283.502},
-//   "clouds":{"all":0},
-//   "dt":1454753557,
-//   "sys":{"message":0.0043,"country":"US","sunrise":1454760054,"sunset":1454797192},
-//   "id":5128581,
-//   "name":"New York",
-//   "cod":200
-// }
